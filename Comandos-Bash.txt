@@ -1,0 +1,283 @@
+----------------------------------
+----- LISTA DE COMANDOS BASH -----
+----------------------------------
+
+- pwd:
+   - Muestra el path del directorio.
+   Ejemplo de uso:
+      $ pwd -> Te muestra el path donde te encuentras.
+
+- cd:
+   - Cambia de directorio.
+   Ejemplos:
+      $ cd -> Te manda a home.
+      $ cd /path/directorio -> Te manda al directorio que quieres ir.
+      $ cd . -> No hace nada porque . es el directorio donde estás.
+      $ cd .. -> Te regresa un directorio atrás.
+      $ cd - -> Te regresa a tu ubicación anterior, se cual sea.
+      $ cd $HOME -> Te manda a home.
+      $ cd $SOME_PATH -> Te manda al path almacenado en la variable SOME_PATH
+
+- ls:
+   - Enlista los archivos y directorios de una cierta carpeta.
+   Ejemplos:
+      $ ls -> Despliega en terminal todos los archivos y directorios.
+      $ ls -l -> Despliga en lista vertical, mostrando también los permisos.
+      $ ls -la -> Lo mismo que el anterior, pero muestra también los ocultos.
+      $ ls /path/ -> Despliega todos los archivos y directorios que están en
+                     /path/
+
+- cat:
+   - Concatena archivos.
+   Ejemplos (los archivos se pueden escribir como /path/file.txt):
+      $ cat file1.txt file2.txt -> Despliega el contenido de file1.txt y file2.txt
+                                   el primero arriba del segundo
+      $ cat file1.txt file2.txt > file.txt -> Lo mismo que el anterior pero el 
+                                              output lo manda al archivo 
+                                              file.txt, sobreescribiéndolo.
+      $ cat file1.txt file2.txt >> file.txt -> Lo mismo que el anterior pero el
+                                               archivo no se sobreescribe, sino
+                                               que se anexan las líneas a partir
+                                               de la última línea de file.txt.
+
+- paste:
+   - Concatena archivos pero en columna.
+   Ejemplo:
+      $  cat file1.txt file2.txt > file.txt -> Lo mismo que en cat, pero los
+                                               concatena en columna.
+
+- cp
+   - Copia archivos y directorios.
+   Ejemplos (los archivos y directorios se pueden escribir como /path/file.txt):
+      $ cp viejo.txt nuevo.txt -> Copia el archivo viejo.txt al archivo nuevo.txt,
+                                  sobreescribiendo éste último, en caso de existir.
+      $ cp -r Viejo_Dir Nuevo_Dir -> Copia el directorio Viejo_Dir al directorio
+                                     Nuevo_Dir. Sí este último ya existe, copia tal
+                                     cual Viejo_Dir dentro de Nuevo_Dir.
+
+- mv (Cuidado al usarlo):
+   - Mueve/renombra archivos y directorios.
+   Ejemplos (los archivos y directorios se pueden escribir como /path/file.txt):
+      $ mv viejo.txt nuevo.txt -> Copia como en cp, pero borra viejo.txt.
+      $ mv Viejo_Dir Nuevo_Dir -> Copia como en cp -r, pero borra Viejo_Dir.
+
+- mkdir:
+   - Crea un directorio nuevo.
+      $ mkdir /path/Nuevo_Dir -> Crea el directorio vacío Nuevo_Dir, en el /path/
+                                 indicado.
+
+- rmdir:
+   - Borra directorio vacios.
+      $ rmdir /path/Nuevo_Dir -> Borra el directorio Nuevo_Dir, solamente si está
+                                 vacío.
+
+- rm (Cuidado al usarlo):
+   - Borra archivos y directorios en general.
+   Ejemplos:
+      $ rm /path/file.txt -> Borra el archivo file.txt en /path.
+      $ rm -r /path/Dir -> Borra el directorio Dir en /path.
+      $ rm -f -> Agregando -f se borra sin preguntar nada.
+
+- touch:
+   - Crea pero no abre, algún archivo.
+   Ejemplo:
+      $ touch file.txt -> Crea el archivo vacío file.txt.
+
+- locate:
+   - Localiza todos los archivos y directorios con cierto patrón.
+   Ejemplo:
+      $ locate patron -> Localiza y muestra el path de todos los archivos y direc-
+                         torios que en su nombre tengan la palabra 'patron'
+
+- find:
+   - Similar a locate, pero permite una busqueda más orientada.
+   Ejemplos:
+      $ find /path -type f -iname "*algo*" -> Busca, dentro de /path, todos los
+                                              archivos (-type f) que en su nombre,
+                                              sin importar si son mayúsculas o 
+                                              minúsculas (-iname) tiene la palabra
+                                              'algo'.
+      $ find /path -type d -name "*Algo*" -> Busca, dentro de /path, todos los
+                                             directorios (-type d) que en su nombre,
+                                             distinguiendo entre mayúsculas y 
+                                             minúsuclas (-name) tiene la palabra 
+                                             "Algo".
+
+- awk:                                             
+   - Permite escanear en busca de patrones.
+   Ejemplos:
+      $ awk 'NR == N' file.txt -> Muestra el N-ésimo renglón del archivo file.txt.
+      $ awk 'NR == N {print $M} file.txt -> Muestra la M-ésima palabra del N-ésimo 
+                                            renglón del archivo file.txt.
+      $ awk '{print $M}' file.txt -> Muestra la M-ésima columna del archivo file.txt.
+      $ awk '/patron/{print $M}' file.txt -> Muestra la M-ésima palabra de los
+                                              renglones que tienen la palabra 'patron'.
+      $ awk '/patron/{gsub($M,"'${var}'")};{print}' viejo.txt > new.txt
+                                           -> Sustituye la M-ésima palabra de los 
+                                              renglones que tiene la palabra 'patron',
+                                              por la variable $var en el archivo 
+                                              viejo.txt, y lo guarda en el archivo 
+                                              new.txt
+      $ awk 'NR == N || NR == M' file.txt -> Muestra las líneas N y M del
+                                             archivo file.txt, donde N y M son
+                                             números distintos.
+      $ awk 'NR >= N && NR <= M' file.txt -> Muestra todas las líneas entre la
+                                             N y M, donde N <= M.
+
+- sed:
+   - Permite encontrar patrones y modificarlos.
+   Ejemplos:
+      $ sed -i 's/patron/nuevo_patron/g' file.txt -> Encuentra la palabra patron
+                                                     en el archivo file.txt,
+                                                     la cambia por nuevo_patron,
+                                                     y reescribe file.txt con
+                                                     dicho cambio.
+                                 
+- grep:
+   - Busca un patrón dentro de una serie de líneas, como un archivo o un output de
+     otro comando.
+   Ejemplos:
+      $ grep 'patron' /path/file.txt -> Busca la palabra 'patron' en el archivo 
+                                        file.txt que se encuentra en /path.
+      $ grep 'patron' /path/*.txt -> Busca la palabra 'patron' en todos los archivos
+                                     que terminan con .txt, y que están en /path.
+
+      $ find /path -type f -exec grep -i 'patron' {} \; -> Ejecuta una busqueda con
+                                                  find y a los archivos que encuentra 
+                                                  les aplica grep para buscar la 
+                                                  palabra 'patron' dentro de ellos.
+      $ find /path -type f -iname "*.txt" | grep 'patron' -> Busca con find a todos
+                                                  los archivos en /path que terminen
+                                                  con .txt y usando grep busca la
+                                                  palabra 'patron' en su hombre.
+                                                            
+- sudo:
+   - Permite correr comandos, scripts y programas con permisos especiales (equivalente
+     a administrador de sistema en Windows).
+   Ejemplo:
+      $ sudo apt-get install paquete -> Permite instalar paquetes. Al momento de usar
+                                        sudo pedirá la contraseña de root.
+
+- df:
+   - Espacio en el/los disco/s duro/s.
+   Ejemplo:
+      $ df -h -> Te muestra todos los discos conectados a tu computadora, especificando
+                 el tamaño de la unidad, el espacio usado y el disponible, usando unas
+                 unidades que un humano (-h) puede entender (Kb, Mb, Gb, etc.)
+
+- du:
+   - Muestra el tamaño de un archivo o directorio.
+   Ejemplo:
+      $ du -h /path/file.txt -> Muestra el tamaño de file.txt en /path usando una
+                                notación que un humano (-h) puede entender.
+      $ du -h /path/Dir -> Igual que el anterior, pero Dir es un directorio.
+
+- head:
+   - Muestra en terminal los primeros renglones de un archivo.
+   Ejemplos:
+      $ head file.txt -> Muestra los primeros 10 renglones de file.txt.
+      $ head -n NUM file.txt -> Muestra los primeros NUM renglones de file.txt. 
+      $ head -n -NUM file.txt -> Muestra todo el archivo file.txt, menos los últimos
+                                 NUM renglones.
+
+- tail:
+   - Complemento del comando head. Funciona a la inversa.
+   Ejemplo:
+      $ tail file.txt -> Muestra los últimos 10 renglones de file.txt.
+      $ tail -n NUM file.txt -> Muestra los últimos NUM renglones de file.txt.
+      $ tail -n +NUM file.txt -> Muestra todo el archivo file.txt, menos los primeros
+                                 NUM renglones.
+
+- diff:
+   - Muestra differencias entre dos archivos.
+   Ejemplo:
+      $ diff file1.txt file2.txt -> Muestra todas las diferencias que hay entre los
+                                    archivos file1.txt y file2.txt
+
+- tar:
+   - En general permite archivar directorios y archivos. Suele ser usado para 
+     comprimir y descomprimir directorios.
+   Ejemplos:
+      $ tar -czvf comprimido.tar.gz Dir -> Crea el archivo comprimido.tar.gz
+                                           a partir de comprimir el directorio
+                                           Dir.
+      $ tar -C /path -xzvf comprimido.tar.gz -> Descomprime el archivo comprimido.tar.gz
+                                                en /path
+
+- zip:
+   - Comprime en formato zip.
+   Ejemplo:
+      $ zip -r comprimido.zip Dir -> Crea el archivo comprimido.zip a partir de
+                                     comprimir el directorio (-r) Dir.
+
+- unzip:
+   - Descomprime en formato zip.
+   Ejemplo:
+      $ unzip comprimido.zip -d /path -> Descomprime el archivo comprimido.zip en /path.
+
+- chmod:
+   - Cambia los permisos de acceso a archivos y directorios.
+   Ejemplos:
+      $ chmod u+r file.txt -> Da permisos de lectura al usuario propietario.
+      $ chmod g-w file.txt -> Quita permisos de escritura a distintus usuarios del
+                              mismo grupo.
+      $ chmod o-rx file.txt -> Quita permisos de escritura y lecutra a otros usuarios
+                               que nos pertenecen al mismo grupo.
+      $ chmod a+rwx file.txt -> Da permisos de lectura, escritura y ejecución a todos
+                                los usuarios.
+      $ chmod XXX file.txt -> Notación octal. La primera posición es para permisos a
+                              u, la segunda es a g y la tercera a o. X varía entre 0 y
+                              7, donde 0 equivale a -rwx y 7 equivale a +rwx. Los valores
+                              intermedios son las posibles combinaciones r, w, x, rw,
+                              rx, wx.
+
+- chown:
+   - Cambia el usuario y grupo de propietarios de directorios.
+   Ejemplo:
+      $ chown user Dir -> Implica que user es ahora el propietario de Dir.
+
+- jobs:
+   - Muestra todos los procesos iniciados en terminal.
+
+- top:
+   - Despliega todos los procesos con identificador (PID) que se están ejecutando.
+
+- kill:
+   - Permite matar procesos.
+   Ejemplo:
+      $ kill PID -> Mata el proceso con identificador PID.
+      $ kill -9 PID -> Si el anterior no funciona, este comando lo mata de raíz.
+
+- ping:
+   - Permite verificar si hay conexión a internet.
+   Ejemplo:
+      $ ping https://www.url.com -> Trata de realizar la coneción a url.com, y
+                                    muestra en pantalla un mensaje de éxito o
+                                    error.
+
+- wget: 
+   - Permite descargar páginas de internet.
+   Ejemplo:
+      $ wget https://www.url.com/file.txt -> Descarga el archivo file.txt de la
+                                             página url.com.
+
+- uname:
+   - Información sobre el sistema operativo.
+
+- hostname:
+   - Información sobre la computadora.
+   Ejemplos:
+      $ hostname -> Muestra el nombre del equipo.
+      $ hostname -I -> Muestra la dirección IP.
+
+- ip:
+   - Información sobre la computadora.
+   Ejemplo:
+      $ ip a | awk '/link\/ether/ {print $2}' -> Muestra la MAC address. Corre el
+                                                 comando ip a, que muestra toda
+                                                 la info de las redes, y con awk
+                                                 busca la que tenga el patrón
+                                                 'link/ether' (usando notación
+                                                 de Perl), e imprime la segunda
+                                                 palabra del renglón, que es la
+                                                 MAC address.
